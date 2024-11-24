@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  registry:
+    container_name: secure_registry
+    image: registry:2
+    ports:
+      - "443:443"
+    environment:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+      REGISTRY_HTTP_ADDR: 0.0.0.0:443
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/example.com.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/example.com.key
+    volumes:
+      - ./reg-data:/data
+      - ./certs: /certs
